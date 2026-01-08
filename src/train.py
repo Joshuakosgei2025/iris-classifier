@@ -3,6 +3,7 @@ import os
 import argparse
 import matplotlib.pyplot as plt
 import seaborn as sns
+import joblib
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -97,6 +98,11 @@ def main():
     # Train model
     model = train_model(X_train, y_train, random_state=args.random_state)
     print("Model training completed.")
+    
+    # Save trained model
+    os.makedirs("outputs", exist_ok=True)
+    joblib.dump(model, "outputs/model.joblib")
+    print("Trained model saved as 'outputs/model.joblib'.")
 
     # Evaluate model
     metrics = evaluate_model(model, X_test, y_test)
